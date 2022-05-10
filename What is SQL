@@ -1,0 +1,626 @@
+# What is SQL
+
+SQL (pronounced S.Q.L. or Sequel, no one really cares) stands for Structured Querying Language and is a language that is used to query, form, and manipulate databases. 
+
+# Setting up the Environment
+
+## Files to Download
+
+[](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3751e911-a0d5-406c-a2c4-a43f0d33ce36/SQLite_Test.db)
+
+## Installation
+
+For this tutorial, we're going to be using SQLite which is a database engine that works in a single application. In order to access it, we'll be using DBeaver. DBeaver is an open-source database manager that connects to almost all database engines. 
+
+**NOTE: Use DBeaver Community, it's free**
+
+[DBeaver](https://dbeaver.io/)
+
+### Dataset
+
+The dataset we'll be using is from the University of California Irvine's Machine Learning Repository
+
+[](https://archive.ics.uci.edu/ml/datasets/in-vehicle+coupon+recommendation)
+
+## Structure of an SQL environment
+
+### Servers
+
+The computer that contains your database or databases. This is typically your highest level of "container" for databases. 
+
+### Databases
+
+A database is a collection of Schemas and Tables that we can interact with. 
+
+### Schemas
+
+Schemas are the highest level of organization in many Databases and can contain multiple tables. 
+
+### Tables
+
+Tables can be thought of in the same way you think about sheets in Excel. It's a collection of columns and rows that we'll be interacting with. 
+
+### Different Database Types
+
+I'll be talking about SQL like it's a standardized language and although it technically is, in practice SQL databases you'll most likely be interacting with are going to be created and run by major corporations who will sprinkle their own flavor of SQL on top of or in lieu of standard SQL. The commands we'll be focusing in this course are pretty standard and shouldn't be drastically different from that which you'll be using in most other databases. Some of the biggest databases are listed below:
+
+MySQL - Open Source - Current Development by Oracle
+
+SQL Server - Created by Microsoft
+
+PostgreSQL - Open Source
+
+Oracle Database - Created by Oracle
+
+### SQL Data Types
+
+Depending on the database type that you use, the datatypes that you'll be working with will be different. Here are the basic types and what they might be referred to by in your database. 
+
+**Text or String types: Used to store text. They can even store numbers as text**
+
+- CHAR
+- VARCHAR
+- TEXT
+
+**Numerical Types: Used to store numbers**
+
+- INTEGER
+- FLOAT
+- REAL
+- NUMERIC
+- BOOLEAN
+
+**Date Types: Used to store dates and times**
+
+**Binary Types: Large files are stored using "1's and 0's", hence binary**
+
+- TINYBLOB
+- BLOB
+
+# Basic Querying
+
+After opening DBeaver and downloading the database file from the link mentioned at the top of the page, create a new connection and select the option for SQLite. 
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/46e00ccc-5a0f-4f26-a542-b478f4d1782b/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/46e00ccc-5a0f-4f26-a542-b478f4d1782b/Untitled.png)
+
+Open up the database file you downloaded
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e3e8c662-1a42-4c8f-8ba3-9689260c5d65/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e3e8c662-1a42-4c8f-8ba3-9689260c5d65/Untitled.png)
+
+If you're using DBeaver, then right click our database and Open a SQL script
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3688f36b-af23-4a77-b4d9-f80a3e48b629/Screen_Shot_2021-05-19_at_11.38.19_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3688f36b-af23-4a77-b4d9-f80a3e48b629/Screen_Shot_2021-05-19_at_11.38.19_PM.png)
+
+## Obtaining Data
+
+### SELECT
+
+The most basic query. This is used to pull data from a database. 
+
+```sql
+SELECT * 
+FROM dataset_1;
+```
+
+You can run this query by pasting the text into the SQL Editor and clicking on this play button
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9146d122-a366-47a4-8079-613a41869763/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9146d122-a366-47a4-8079-613a41869763/Untitled.png)
+
+In the above statement you have a couple of parts:
+
+`SELECT *` this is the command
+
+`FROM` this tells the Database where to pull data from
+
+`dataset_1` this is the table you're pulling data from
+
+`;` the semicolon at the end is how you end an SQL statement. Some databases require it, others don't so I recommend always using one. 
+
+The above command selects all columns in the dataset, you can also specify columns like so:
+
+```sql
+SELECT weather, temperature
+FROM dataset_1;
+```
+
+This will only select the `weather` and `temperature` columns from the dataset. 
+
+### LIMIT
+
+Can be used to limit the amount of data that is pulled into a query, very useful when first exploring the data. 
+
+**Query:**
+
+```sql
+select * 
+FROM dataset_1 LIMIT 10;
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/666a06d5-8e40-40f2-ba42-087a60ee7076/Screen_Shot_2021-05-18_at_9.20.12_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/666a06d5-8e40-40f2-ba42-087a60ee7076/Screen_Shot_2021-05-18_at_9.20.12_PM.png)
+
+### DISTINCT
+
+Gets the unique values from a column
+
+**Query:**
+
+```sql
+SELECT DISTINCT passanger 
+FROM dataset_1;
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a8a603b8-b828-4b84-8540-42b560d65fbf/Screen_Shot_2021-05-18_at_9.25.43_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a8a603b8-b828-4b84-8540-42b560d65fbf/Screen_Shot_2021-05-18_at_9.25.43_PM.png)
+
+### WHERE
+
+**Query:**
+
+```sql
+SELECT * 
+FROM dataset_1
+WHERE destination = 'Home';
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5886172e-2bfc-4d78-a4c1-914e6910a191/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5886172e-2bfc-4d78-a4c1-914e6910a191/Untitled.png)
+
+### ORDER BY
+
+**Query:**
+
+```sql
+SELECT * 
+FROM dataset_1
+ORDER BY coupon;
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/00aee3db-2c4e-48cd-b29e-467e453fca45/Screen_Shot_2021-05-18_at_9.34.21_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/00aee3db-2c4e-48cd-b29e-467e453fca45/Screen_Shot_2021-05-18_at_9.34.21_PM.png)
+
+### Aliasing
+
+**Query:**
+
+```sql
+SELECT destination as 'Destination' 
+FROM dataset_1;
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e3b4cd3e-ccf6-4c75-8520-7e2a5dcfdbcc/Screen_Shot_2021-05-18_at_9.36.30_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e3b4cd3e-ccf6-4c75-8520-7e2a5dcfdbcc/Screen_Shot_2021-05-18_at_9.36.30_PM.png)
+
+### Comments
+
+**Query:**
+
+```sql
+SELECT * -- This is a comment
+FROM dataset_1;
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7f39e6a1-7319-4ac7-b0b9-3cdf9a7c061a/Screen_Shot_2021-05-18_at_9.39.26_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7f39e6a1-7319-4ac7-b0b9-3cdf9a7c061a/Screen_Shot_2021-05-18_at_9.39.26_PM.png)
+
+## Aggregations
+
+### GROUP BY
+
+**Query:**
+
+```sql
+SELECT occupation
+FROM dataset_1
+GROUP BY occupation;
+```
+
+**Result:** 
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3b971a6e-3b6c-463c-9cec-ddc6caf82f34/Screen_Shot_2021-05-18_at_9.53.04_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3b971a6e-3b6c-463c-9cec-ddc6caf82f34/Screen_Shot_2021-05-18_at_9.53.04_PM.png)
+
+### AVG
+
+**Query:**
+
+```sql
+SELECT weather, 
+AVG(temperature) AS 'avg_temp'
+FROM dataset_1
+GROUP BY weather;
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/74b5bb90-2ccc-45a1-8177-2ea8fd6941f6/Screen_Shot_2021-05-18_at_9.52.17_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/74b5bb90-2ccc-45a1-8177-2ea8fd6941f6/Screen_Shot_2021-05-18_at_9.52.17_PM.png)
+
+### COUNT
+
+**Query:** 
+
+```sql
+SELECT weather, 
+COUNT(temperature) AS 'count_temp'
+FROM dataset_1
+GROUP BY weather;
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/aa57a29d-8c65-4ff1-b4a5-5cd414f77453/Screen_Shot_2021-05-18_at_11.22.45_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/aa57a29d-8c65-4ff1-b4a5-5cd414f77453/Screen_Shot_2021-05-18_at_11.22.45_PM.png)
+
+### COUNT (DISTINCT)
+
+**Query:**
+
+```sql
+SELECT weather, 
+COUNT(DISTINCT temperature) AS 'count_distinct_temp'
+FROM dataset_1
+GROUP BY weather;
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0ed6075d-c06b-4cb5-96d3-94d4283cb838/Screen_Shot_2021-05-18_at_11.30.24_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0ed6075d-c06b-4cb5-96d3-94d4283cb838/Screen_Shot_2021-05-18_at_11.30.24_PM.png)
+
+### SUM
+
+**Query:** 
+
+```sql
+SELECT weather, 
+SUM(temperature) AS 'sum_temp'
+FROM dataset_1
+GROUP BY weather;
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/13d06fd7-a518-45ee-9155-69da0c2169cf/Screen_Shot_2021-05-18_at_11.26.11_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/13d06fd7-a518-45ee-9155-69da0c2169cf/Screen_Shot_2021-05-18_at_11.26.11_PM.png)
+
+### MIN
+
+**Query:**
+
+```sql
+SELECT weather, 
+MIN(temperature) AS 'min_temp'
+FROM dataset_1
+GROUP BY weather;
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3566c495-7b29-4641-8c5d-5d0ea3af1582/Screen_Shot_2021-05-18_at_11.28.32_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3566c495-7b29-4641-8c5d-5d0ea3af1582/Screen_Shot_2021-05-18_at_11.28.32_PM.png)
+
+### MAX
+
+**Query:**
+
+```sql
+SELECT weather, 
+MAX(temperature) AS 'max_temp'
+FROM dataset_1
+GROUP BY weather;
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f5d5f736-8875-436c-a04f-9cdf195a5b53/Screen_Shot_2021-05-18_at_11.27.59_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f5d5f736-8875-436c-a04f-9cdf195a5b53/Screen_Shot_2021-05-18_at_11.27.59_PM.png)
+
+### HAVING
+
+**Query:**
+
+```sql
+SELECT occupation
+FROM dataset_1
+GROUP BY occupation
+HAVING occupation = 'Student';
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/488bcee2-d802-40ab-9338-3449f8453ff5/Screen_Shot_2021-05-18_at_9.55.09_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/488bcee2-d802-40ab-9338-3449f8453ff5/Screen_Shot_2021-05-18_at_9.55.09_PM.png)
+
+## Combining Data
+
+### Joins and Unions
+
+Oftentimes we'll want to enrich our data by adding more data from other datasets to it. There are two major ways we can combine our datasets together: (The following visualizations will be coming from my FREE Tableau Course)
+
+**Unions**
+
+Put simply, a union (SQL Union) is the process of stacking two tables on top of one another. You will usually do this when your data is split up into multiple sections like an excel spreadsheet of a year’s sales split by month.
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a5adad37-92c6-4924-b52c-2ab340ae351b/Screen_Shot_2021-03-15_at_12.23.40_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a5adad37-92c6-4924-b52c-2ab340ae351b/Screen_Shot_2021-03-15_at_12.23.40_PM.png)
+
+**Joins**
+
+Joins combine two tables horizontally. For a join, like a Union you have to have at least two tables, what we call our Left Table and our Right Table. You (mostly) have to have at least one matching column between the two tables, and you will match rows from these columns. The most common way to visualize the types of Joins are through Venn Diagrams.
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ba7b4d86-db23-4142-b860-2e23fce3bae4/Screen_Shot_2021-03-15_at_12.36.03_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ba7b4d86-db23-4142-b860-2e23fce3bae4/Screen_Shot_2021-03-15_at_12.36.03_PM.png)
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e94f8697-5537-4458-9992-4ea02defbea0/Screen_Shot_2021-03-15_at_12.36.37_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e94f8697-5537-4458-9992-4ea02defbea0/Screen_Shot_2021-03-15_at_12.36.37_PM.png)
+
+You’ll mostly be sticking to Left and Inner Joins. It’s worth your time to learn more about Joins because they are some of the most powerful tools you can use to manipulate data. I use Joins basically every single day in my work. For this course, we’re going to stick with relatively simple Joins.
+
+We’re now going to do something called an Inner Join on the [ID] column which will only output exact matches from the [ID] column in our output.
+
+![Inner Join](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1d7856a8-7fc5-4673-a7a6-522d5fd52a9c/Screen_Shot_2021-03-15_at_12.37.59_PM.png)
+
+Inner Join
+
+A Left Join keeps all of the data from your Left table and whatever matches from the Right table.
+
+![Left Join](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a4b067dc-dd79-4456-8cae-2f81a8ac4201/Screen_Shot_2021-03-15_at_12.39.07_PM.png)
+
+Left Join
+
+A Right Join does the exact opposite and keeps everything from your Right table while only bringing in the matches from the Left table.
+
+![Right Join](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1235ef85-ef65-4e03-ba26-6661b39bad62/Screen_Shot_2021-03-15_at_12.39.43_PM.png)
+
+Right Join
+
+A Full Join brings in everything from both tables and matches whatever will match from the columns you specify.
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e42b3cca-c8df-48fb-9b63-211c498be6a9/Screen_Shot_2021-03-15_at_12.40.52_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e42b3cca-c8df-48fb-9b63-211c498be6a9/Screen_Shot_2021-03-15_at_12.40.52_PM.png)
+
+*Common Join Gotchas*
+
+Joins can get a bit tricky because of the potential for gotchas when joining two tables. The most common one is row duplication where you accidentally duplicate rows because the columns you’re matching on have multiple potential matches. In the example below we’re going to try an Inner Join. You’ll notice the columns in Orange were duplicated.
+
+![Join duplication "error"](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/89439f1d-e24a-4451-bd0d-37a0dfcc4487/Screen_Shot_2021-03-15_at_12.42.17_PM.png)
+
+Join duplication "error"
+
+This isn’t an error per se but it is something to watch out for as it can cause you to duplicate data you don’t intend to duplicate.
+
+![Join duplication "error"](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8d64f5ba-d067-40f5-94bb-32beb9fe49d1/Screen_Shot_2021-03-15_at_12.42.37_PM.png)
+
+Join duplication "error"
+
+### UNION
+
+**Query:**
+
+```sql
+SELECT * 
+FROM dataset_1
+UNION 
+SELECT * 
+FROM table_to_union
+```
+
+**Result:**
+
+In order to see the effect of the result, let's run this query:
+
+```sql
+SELECT DISTINCT destination
+FROM (
+SELECT * 
+FROM dataset_1
+UNION 
+SELECT * 
+FROM table_to_union);
+```
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e4f68350-be16-4112-aa4e-779489442bcc/Screen_Shot_2021-05-19_at_5.48.27_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e4f68350-be16-4112-aa4e-779489442bcc/Screen_Shot_2021-05-19_at_5.48.27_PM.png)
+
+### JOIN (LEFT, INNER, OUTER, RIGHT)
+
+**Query:**
+
+```sql
+SELECT a.destination, a.time, b.part_of_day
+FROM dataset_1 a 
+INNER JOIN table_to_join b 
+ON a.time  = b.time;
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8cf6d488-20a3-4dcf-ab2a-6e359c673536/Screen_Shot_2021-05-19_at_5.50.00_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8cf6d488-20a3-4dcf-ab2a-6e359c673536/Screen_Shot_2021-05-19_at_5.50.00_PM.png)
+
+# Advanced Querying
+
+## Subquerying
+
+**Query:**
+
+```sql
+SELECT destination, passanger
+FROM (SELECT * FROM dataset_1 WHERE passanger = 'Alone');
+```
+
+**Result:** 
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/157d2b80-ad50-44b2-a670-812854f04d42/Screen_Shot_2021-05-19_at_5.27.32_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/157d2b80-ad50-44b2-a670-812854f04d42/Screen_Shot_2021-05-19_at_5.27.32_PM.png)
+
+## Advanced Filtering
+
+### LIKE
+
+**Query:**
+
+```sql
+SELECT *
+FROM dataset_1
+WHERE weather LIKE 'Sun%';
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/de02383b-d4d5-47ea-a031-e4f8f059b4c4/Screen_Shot_2021-05-18_at_11.40.50_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/de02383b-d4d5-47ea-a031-e4f8f059b4c4/Screen_Shot_2021-05-18_at_11.40.50_PM.png)
+
+### Wildcard Operators
+
+![[https://www.w3schools.com/sql/sql_wildcards.asp](https://www.w3schools.com/sql/sql_wildcards.asp)](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/aeec1f2a-4b6f-4216-aaee-df5e9f177bbb/Screen_Shot_2021-05-18_at_11.43.47_PM.png)
+
+[https://www.w3schools.com/sql/sql_wildcards.asp](https://www.w3schools.com/sql/sql_wildcards.asp)
+
+### BETWEEN
+
+**Query:**
+
+```sql
+SELECT DISTINCT temperature 
+FROM dataset_1
+WHERE temperature BETWEEN 29 AND 75;
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/39fb99ce-4c5b-4e18-9e0c-be0be965ba54/Screen_Shot_2021-05-18_at_10.40.38_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/39fb99ce-4c5b-4e18-9e0c-be0be965ba54/Screen_Shot_2021-05-18_at_10.40.38_PM.png)
+
+### IN
+
+**Query:**
+
+```sql
+SELECT occupation
+FROM dataset_1
+WHERE occupation IN ('Sales & Related', 'Management');
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d6a00e36-3a57-4646-be6b-60cb8e23f671/Screen_Shot_2021-05-18_at_10.34.37_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d6a00e36-3a57-4646-be6b-60cb8e23f671/Screen_Shot_2021-05-18_at_10.34.37_PM.png)
+
+## Advanced Aggregation
+
+### Window Functions
+
+### OVER and PARTITION BY
+
+**Query:**
+
+```sql
+SELECT 
+	destination, 
+	weather, 
+	AVG(temperature) OVER (PARTITION BY weather) AS 'avg_temp_by_weather'
+FROM dataset_1;
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/efe3967c-6c19-4544-8951-8f47e66e61d7/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/efe3967c-6c19-4544-8951-8f47e66e61d7/Untitled.png)
+
+You can also order by a certain column too if you want:
+
+```sql
+SELECT 
+	destination, 
+	weather, 
+	AVG(temperature) OVER (PARTITION BY weather ORDER BY destination) AS 'avg_temp_by_weather'
+FROM dataset_1;
+```
+
+### ROW_NUMBER()
+
+**Query:**
+
+```sql
+SELECT 
+	destination, 
+	weather, 
+	ROW_NUMBER() OVER (PARTITION BY weather ORDER BY destination) AS 'avg_temp_by_weather'
+FROM dataset_1;
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/35b8775e-264e-4e50-a984-365848084e71/Screen_Shot_2021-05-19_at_12.04.35_AM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/35b8775e-264e-4e50-a984-365848084e71/Screen_Shot_2021-05-19_at_12.04.35_AM.png)
+
+### RANK()
+
+**Query:**
+
+```sql
+SELECT 
+	destination, 
+	weather, 
+	RANK() OVER (PARTITION BY weather ORDER BY destination) AS 'avg_temp_by_weather'
+FROM dataset_1;
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/87af4c4d-2c9d-4028-976f-554b85b9af64/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/87af4c4d-2c9d-4028-976f-554b85b9af64/Untitled.png)
+
+### DENSE_RANK()
+
+**Query:**
+
+```sql
+SELECT 
+destination, 
+weather, 
+DENSE_RANK() OVER (PARTITION BY weather ORDER BY destination) AS 'avg_temp_by_weather'
+FROM dataset_1;
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d9b83980-afb5-4930-a612-487a0ac52557/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d9b83980-afb5-4930-a612-487a0ac52557/Untitled.png)
+
+### NTILE
+
+**Query:**
+
+```sql
+SELECT time, NTILE (50) OVER (ORDER BY time)
+FROM dataset_1;
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3aba75e0-d0ea-4d46-8f70-473f3a094f6f/Screen_Shot_2021-05-19_at_5.01.14_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3aba75e0-d0ea-4d46-8f70-473f3a094f6f/Screen_Shot_2021-05-19_at_5.01.14_PM.png)
+
+### LAG
+
+**Query:**
+
+```sql
+SELECT destination, time, LAG(row_count , 1, '99999') OVER (ORDER BY row_count) AS 'LaggedCount' 
+FROM dataset_1;
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/56e463af-2385-4a59-a1f5-1d8a4f33ad7e/Screen_Shot_2021-05-19_at_4.38.46_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/56e463af-2385-4a59-a1f5-1d8a4f33ad7e/Screen_Shot_2021-05-19_at_4.38.46_PM.png)
+
+### LEAD
+
+**Query:**
+
+```sql
+SELECT destination, time, LEAD(row_count , 1, '99999') OVER (ORDER BY row_count) AS 'LaggedCount' 
+FROM dataset_1;
+```
+
+**Result:**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/69239e03-6aaa-461c-8a47-599db699cd69/Screen_Shot_2021-05-19_at_4.39.46_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/69239e03-6aaa-461c-8a47-599db699cd69/Screen_Shot_2021-05-19_at_4.39.46_PM.png)
+
+# Manipulating Tables
+
+## Basics
+
+### CREATE
+
+### DROP
+
+### ALTER
+
+## Views
