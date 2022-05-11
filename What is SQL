@@ -81,15 +81,15 @@ Depending on the database type that you use, the datatypes that you'll be workin
 
 After opening DBeaver and downloading the database file from the link mentioned at the top of the page, create a new connection and select the option for SQLite. 
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/46e00ccc-5a0f-4f26-a542-b478f4d1782b/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/46e00ccc-5a0f-4f26-a542-b478f4d1782b/Untitled.png)
+![Screenshot (64).png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2a5be0b6-3db1-48cc-af05-6ed8567856be/Screenshot_(64).png)
 
 Open up the database file you downloaded
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e3e8c662-1a42-4c8f-8ba3-9689260c5d65/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e3e8c662-1a42-4c8f-8ba3-9689260c5d65/Untitled.png)
+![Screenshot (65).png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8eff2949-8ed0-49a4-a6fc-c7aee1417d47/Screenshot_(65).png)
 
 If you're using DBeaver, then right click our database and Open a SQL script
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3688f36b-af23-4a77-b4d9-f80a3e48b629/Screen_Shot_2021-05-19_at_11.38.19_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3688f36b-af23-4a77-b4d9-f80a3e48b629/Screen_Shot_2021-05-19_at_11.38.19_PM.png)
+![Screenshot (67).png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8641ec32-fb92-44a3-8f42-fa6c210ad26a/Screenshot_(67).png)
 
 ## Obtaining Data
 
@@ -104,7 +104,7 @@ FROM dataset_1;
 
 You can run this query by pasting the text into the SQL Editor and clicking on this play button
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9146d122-a366-47a4-8079-613a41869763/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9146d122-a366-47a4-8079-613a41869763/Untitled.png)
+![4.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b7a8af55-adbc-4a6e-bedd-ebbb98353f42/4.png)
 
 In the above statement you have a couple of parts:
 
@@ -348,27 +348,21 @@ Joins combine two tables horizontally. For a join, like a Union you have to have
 
 ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ba7b4d86-db23-4142-b860-2e23fce3bae4/Screen_Shot_2021-03-15_at_12.36.03_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ba7b4d86-db23-4142-b860-2e23fce3bae4/Screen_Shot_2021-03-15_at_12.36.03_PM.png)
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e94f8697-5537-4458-9992-4ea02defbea0/Screen_Shot_2021-03-15_at_12.36.37_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e94f8697-5537-4458-9992-4ea02defbea0/Screen_Shot_2021-03-15_at_12.36.37_PM.png)
+![21.PNG](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/833b6174-c8ee-4061-89af-24d2d6ef8841/21.png)
 
 You’ll mostly be sticking to Left and Inner Joins. It’s worth your time to learn more about Joins because they are some of the most powerful tools you can use to manipulate data. I use Joins basically every single day in my work. For this course, we’re going to stick with relatively simple Joins.
 
 We’re now going to do something called an Inner Join on the [ID] column which will only output exact matches from the [ID] column in our output.
 
-![Inner Join](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1d7856a8-7fc5-4673-a7a6-522d5fd52a9c/Screen_Shot_2021-03-15_at_12.37.59_PM.png)
-
-Inner Join
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1d7856a8-7fc5-4673-a7a6-522d5fd52a9c/Screen_Shot_2021-03-15_at_12.37.59_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1d7856a8-7fc5-4673-a7a6-522d5fd52a9c/Screen_Shot_2021-03-15_at_12.37.59_PM.png)
 
 A Left Join keeps all of the data from your Left table and whatever matches from the Right table.
 
-![Left Join](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a4b067dc-dd79-4456-8cae-2f81a8ac4201/Screen_Shot_2021-03-15_at_12.39.07_PM.png)
-
-Left Join
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a4b067dc-dd79-4456-8cae-2f81a8ac4201/Screen_Shot_2021-03-15_at_12.39.07_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a4b067dc-dd79-4456-8cae-2f81a8ac4201/Screen_Shot_2021-03-15_at_12.39.07_PM.png)
 
 A Right Join does the exact opposite and keeps everything from your Right table while only bringing in the matches from the Left table.
 
-![Right Join](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1235ef85-ef65-4e03-ba26-6661b39bad62/Screen_Shot_2021-03-15_at_12.39.43_PM.png)
-
-Right Join
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1235ef85-ef65-4e03-ba26-6661b39bad62/Screen_Shot_2021-03-15_at_12.39.43_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1235ef85-ef65-4e03-ba26-6661b39bad62/Screen_Shot_2021-03-15_at_12.39.43_PM.png)
 
 A Full Join brings in everything from both tables and matches whatever will match from the columns you specify.
 
@@ -612,18 +606,3 @@ FROM dataset_1;
 **Result:**
 
 ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/69239e03-6aaa-461c-8a47-599db699cd69/Screen_Shot_2021-05-19_at_4.39.46_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/69239e03-6aaa-461c-8a47-599db699cd69/Screen_Shot_2021-05-19_at_4.39.46_PM.png)
-
-# Manipulating Tables
-
-## Basics
-
-### CREATE
-
-### DROP
-
-### ALTER
-
-## Views
-
-
--- Special thanks to Shasank Kalanithi for the materials and support!!
